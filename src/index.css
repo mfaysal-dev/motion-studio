@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-app: var(--app);
+  --color-panel: var(--panel);
+  --color-panel2: var(--panel-2);
+  --color-panel3: var(--panel-3);
+  --color-line: var(--line);
+  --color-ink: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent2: var(--accent-2);
+  --color-hover: var(--hover);
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Syne", "Inter", sans-serif;
+}
+
+:root, [data-theme="dark"] {
+  --app: #07070b;
+  --panel: #101016;
+  --panel-2: #17171f;
+  --panel-3: #1f1f2a;
+  --line: #24242f;
+  --text: #ececf3;
+  --muted: #8b8b9e;
+  --accent: #8b6cff;
+  --accent-2: #22d3ee;
+  --hover: rgba(255, 255, 255, 0.06);
+  --canvas-bg: #08080c;
+  --canvas-dot: rgba(255, 255, 255, 0.05);
+  --shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.8);
+  color-scheme: dark;
+}
+[data-theme="light"] {
+  --app: #eceef3;
+  --panel: #ffffff;
+  --panel-2: #f3f4f8;
+  --panel-3: #e8e9f0;
+  --line: #e1e2ea;
+  --text: #16161d;
+  --muted: #6b6b80;
+  --accent: #6d4aff;
+  --accent-2: #0891b2;
+  --hover: rgba(0, 0, 0, 0.05);
+  --canvas-bg: #e6e8ee;
+  --canvas-dot: rgba(0, 0, 0, 0.06);
+  --shadow: 0 20px 50px -24px rgba(30, 30, 60, 0.35);
+  color-scheme: light;
+}
+
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: var(--app);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+* { scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+button { cursor: pointer; }
+button:disabled { cursor: default; opacity: 0.4; }
+input, select, textarea { font: inherit; color: inherit; }
+
+.grad-text {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.grad-bg { background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+
+.field {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  height: 30px;
+  padding: 0 8px;
+  outline: none;
+  min-width: 0;
+  transition: border-color .15s, background .15s;
+}
+.field:focus { border-color: var(--accent); }
+select.field { padding-right: 4px; }
+
+input[type="range"].range {
+  -webkit-appearance: none; appearance: none; height: 18px; background: transparent; min-width: 0;
+}
+input[type="range"].range::-webkit-slider-runnable-track { height: 4px; border-radius: 4px; background: linear-gradient(90deg, var(--accent) var(--pct, 50%), var(--panel-3) var(--pct, 50%)); }
+input[type="range"].range::-moz-range-track { height: 4px; border-radius: 4px; background: var(--panel-3); }
+input[type="range"].range::-moz-range-progress { height: 4px; border-radius: 4px; background: var(--accent); }
+input[type="range"].range::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #fff; margin-top: -5px; box-shadow: 0 0 0 3px var(--accent), 0 2px 6px rgba(0,0,0,.4); }
+input[type="range"].range::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 3px solid var(--accent); }
+
+.checker {
+  background-color: #fff;
+  background-image: linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%);
+  background-size: 8px 8px; background-position: 0 0, 0 4px, 4px -4px, -4px 0;
+}
+
+.tool-btn {
+  width: 38px; height: 38px; display: grid; place-items: center; border-radius: 10px; color: var(--muted);
+  transition: background .15s, color .15s, transform .1s;
+}
+.tool-btn:hover { background: var(--hover); color: var(--text); }
+.tool-btn.active { background: linear-gradient(135deg, color-mix(in oklab, var(--accent) 85%, transparent), color-mix(in oklab, var(--accent-2) 70%, transparent)); color: #fff; box-shadow: 0 6px 20px -6px var(--accent); }
+.tool-btn:active { transform: scale(.94); }
+
+.icon-btn { height: 30px; min-width: 30px; padding: 0 8px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border-radius: 8px; color: var(--text); transition: background .15s; }
+.icon-btn:hover:not(:disabled) { background: var(--hover); }
+.icon-btn.on { background: color-mix(in oklab, var(--accent) 22%, transparent); color: var(--accent); }
+
+.btn-primary { height: 32px; padding: 0 14px; border-radius: 9px; color: #fff; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, var(--accent), color-mix(in oklab, var(--accent-2) 80%, var(--accent))); box-shadow: 0 8px 24px -10px var(--accent); transition: filter .15s, transform .1s; }
+.btn-primary:hover { filter: brightness(1.1); }
+.btn-primary:active { transform: translateY(1px); }
+.btn { height: 32px; padding: 0 12px; border-radius: 9px; background: var(--panel-2); border: 1px solid var(--line); display: inline-flex; align-items: center; gap: 6px; font-weight: 500; }
+.btn:hover { background: var(--panel-3); }
+
+.tab { padding: 6px 10px; border-radius: 8px; color: var(--muted); font-weight: 600; font-size: 12px; }
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--text); background: var(--panel-3); }
+
+.section-title { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 700; }
+
+.chip { padding: 5px 9px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel-2); font-size: 11.5px; transition: all .15s; white-space: nowrap; }
+.chip:hover { border-color: color-mix(in oklab, var(--accent) 60%, var(--line)); }
+.chip.active { background: color-mix(in oklab, var(--accent) 22%, transparent); border-color: var(--accent); color: var(--text); }
+
+.kbd { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; padding: 1px 6px; border-radius: 5px; border: 1px solid var(--line); background: var(--panel-2); color: var(--muted); }
+
+@keyframes toast-in { from { opacity: 0; transform: translate(-50%, 8px) } to { opacity: 1; transform: translate(-50%, 0) } }
+.toast { animation: toast-in .2s ease-out; }
+@keyframes pop-in { from { opacity: 0; transform: scale(.97) translateY(6px) } to { opacity: 1; transform: none } }
+.pop-in { animation: pop-in .18s ease-out; }
