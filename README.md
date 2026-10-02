@@ -61,3 +61,10 @@ Stack: React 19, TypeScript, Vite, Tailwind CSS v4, Zustand + Immer, custom Canv
 - SVG export simplifies eraser strokes and built-in patterns.
 
 ![Timeline](docs/timeline.png)
+
+## Author
+
+Built by [Mahir Faysal](https://mfaysal.com), a web developer in Bangladesh.
+
+- Project page: [Kinetica on mfaysal.com](https://mfaysal.com/projects/motion-studio)
+- More projects: [mfaysal.com/projects](https://mfaysal.com/projects) · Blog: [mfaysal.com/blog](https://mfaysal.com/blog)
